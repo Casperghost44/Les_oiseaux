@@ -1,0 +1,28 @@
+version: '3.4'
+services:
+ oiseaux-shop:
+    container_name: oiseaux-shop-web
+    image: app1:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=Production
+      - DatabaseSettings__ConnectionString=Data source=main.db;
+    networks:
+      - oiseaux-network
+    ports:
+      - '5552:5000'
+  database:
+    container_name: db
+    image: sqlite:latest
+    networks:
+      - uoiseaux-network
+    ports:
+      - '5454:5432'
+    volume:
+      - "C:\Users\PimpMyPC\source\repos\Les_oiseaux\Les_oiseaux.Inf\main.db"
+
+
+networks:
+  oiseaux-network: null
